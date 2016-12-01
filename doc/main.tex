@@ -1,0 +1,117 @@
+% ;; -*- coding: iso-latin-1; TeX-PDF-mode: t; TeX-master: "main" -*-%
+
+\documentclass{article}
+\usepackage{xspace}
+\usepackage{epsfig}
+\usepackage{latexsym,amssymb,stmaryrd}
+\usepackage{fancybox,epic}
+\usepackage[algoruled,vlined,english]{algorithm2e}
+\usepackage{amsmath}
+\usepackage{colortbl}
+\usepackage{caption}
+\usepackage{color} 
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[draft]{fixme}
+\usepackage[color=green!20]{todonotes}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{paralist}
+
+\usepackage{arydshln}
+
+\usepackage{url}
+
+\usepackage{listings}
+\lstset{ 
+  frame=Ltb,
+  framerule=0pt,
+  aboveskip=0mm,
+  framextopmargin=10pt,
+  framexbottommargin=0pt,
+  framexleftmargin=0cm,
+  framesep=0pt,
+  rulesep=0pt,
+  % 
+  stringstyle=\ttfamily,
+  showstringspaces = false,
+  basicstyle=\small\sffamily,
+  commentstyle=\color{black},
+  keywordstyle=\small\bfseries,
+  % 
+  numbers=left,
+  mathescape=true,
+  numbersep=-5pt,
+  numberstyle=\tiny,
+  numberfirstline=true,
+  numberblanklines=true,
+  firstnumber=auto,
+  breaklines=true,
+  language=Java,
+  morekeywords={if,then,else,while,do,return,await,get,skip,release,begin} 
+}
+
+
+
+\begin{document}
+
+
+
+\title{EasyPeople: Manage Large DB of people.}
+
+
+\author{Jes\'us Dom\'enech}
+
+\maketitle 
+
+\section{Requirements}
+
+\subsection{CSV to CSV-normal}
+
+\subsubsection{Explanation}
+Given a CSV of People Get a new CSV with:
+\begin{itemize}
+\item Extend names.
+\item ``DNI'' like 00000000N
+\item normalize dates.
+\item normalize Custom-Fields.
+\item Select From list.
+\end{itemize}
+
+\subsubsection{Recepie}
+To solve this we do the following steps:
+\begin{enumerate}
+\item Read CSV by columns.
+\item Apply to each column a normalizer. (Prevent whites and don't
+  reorder anything)
+\item Write CSV-normal row-by-row, with reordered columns and empty info.
+\end{enumerate}
+
+\subsubsection{Modules: Low Level}
+\begin{itemize}
+\item CSV Handler
+\begin{itemize}
+\item ReadCSV : filepath $\Rightarrow$  Array[people][info]
+\item WriteNormalCSV : Array[people][multi-info] filepath $\Rightarrow$ bool
+\end{itemize}
+\item Normalizer
+\begin{itemize}
+\item Normalize : Array[columnName, info-people] $\Rightarrow$  Array[columnName,[info]]
+\item NormalizeDate : string $\Rightarrow$ Normal-Date-string
+\item NormalizePhone: string $\Rightarrow$ [number]
+\item NormalizeName : string $\Rightarrow$ Normal-Name-string
+\item NormalizeListItem : string List $\Rightarrow$ Normal-string
+\item NormalizeDNI  : string $\Rightarrow$ Normal-DNI-string
+\item toNumber      : string $\Rightarrow$ number
+\end{itemize}
+\end{itemize}
+
+\subsection{Find Duplicates}
+
+\subsection{CSV to Excel}
+
+\subsection{Filter Excel}
+
+\end{document}
